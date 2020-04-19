@@ -1,2 +1,2 @@
 # docker-nginx-buildsource
-nginx docker image-build nginx from source
+this is nginx docker image but build from source
