@@ -16,3 +16,8 @@ docker-compose.yml
 Gemfile
 Gemfile.lock
 _website*.json
+_mockData
+deleted
+email-templates
+script
+static
