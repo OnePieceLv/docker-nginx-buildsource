@@ -70,11 +70,11 @@ RUN set -ex \
   --with-http_stub_status_module \
   \
   --http-log-path=/usr/local/nginx/logs/access.log \
-  --http-client-body-temp-path=/usr/local/nginx/client_body_temp \
-  --http-proxy-temp-path=/usr/local/nginx/proxy_temp \
-  --http-fastcgi-temp-path=/usr/local/nginx/fastcgi_temp \
-  --http-uwsgi-temp-path=/usr/local/nginx/uwsgi_temp \
-  --http-scgi-temp-path=/usr/local/nginx/scgi_temp \
+  --http-client-body-temp-path=/var/cache/nginx/client_body_temp \
+  --http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+  --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+  --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+  --http-scgi-temp-path=/var/cache/nginx/scgi_temp \
   \
   --with-mail \
   --with-mail_ssl_module \
@@ -87,6 +87,7 @@ RUN set -ex \
   && sed -i -e 's/#access_log  logs\/access.log  main;/access_log \/dev\/stdout;/' -e 's/#error_log  logs\/error.log  notice;/error_log stderr notice;/' /usr/local/nginx/conf/nginx.conf \
   # && useradd -ms /bin/bash nginx \
   && adduser -D nginx \
+  && mkdir -p /var/cache/nginx \
   && apk del .build-deps \
   && rm -rf /tmp/* \
   && whoami \
