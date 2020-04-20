@@ -46,8 +46,8 @@ RUN set -ex \
   --conf-path=/usr/local/nginx/conf/nginx.conf \
   --error-log-path=/usr/local/nginx/logs/error.log \
   \
-  --user=nginx \
-  --group=nginx \
+  --user=devops \
+  --group=devops \
   \
   --with-threads \
   \
@@ -86,15 +86,14 @@ RUN set -ex \
   && make install \
   && sed -i -e 's/#access_log  logs\/access.log  main;/access_log \/dev\/stdout;/' -e 's/#error_log  logs\/error.log  notice;/error_log stderr notice;/' /usr/local/nginx/conf/nginx.conf \
   # && useradd -ms /bin/bash nginx \
-  && adduser -D nginx \
+  && adduser -D devops \
   && mkdir -p /var/cache/nginx \
   && apk del .build-deps \
   && rm -rf /tmp/* \
   && whoami \
+  # && chgrp -R root /var/cache/nginx /usr/local/nginx /usr/local/nginx/logs \
+  # && chmod -R 770 /var/cache/nginx /usr/local/nginx /usr/local/nginx/logs \
   && ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
-
-USER nginx
-WORKDIR /home/nginx
 
 # https://github.com/phusion/baseimage-docker/issues/319#issuecomment-272568689s
 ENV DEBIAN_FRONTEND teletype
